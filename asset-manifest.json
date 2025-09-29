@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Test_Join.To.IT/static/css/main.7acaea2f.css",
+    "main.js": "/Test_Join.To.IT/static/js/main.07d3183d.js",
+    "index.html": "/Test_Join.To.IT/index.html",
+    "main.7acaea2f.css.map": "/Test_Join.To.IT/static/css/main.7acaea2f.css.map",
+    "main.07d3183d.js.map": "/Test_Join.To.IT/static/js/main.07d3183d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7acaea2f.css",
+    "static/js/main.07d3183d.js"
+  ]
+}
