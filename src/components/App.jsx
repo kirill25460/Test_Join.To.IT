@@ -1,16 +1,15 @@
+import {  Routes, Route } from "react-router-dom";
+import SideBar from './SideBar/SideBar';
+import MyCalendar from './Calendar/Calendar';
 export const App = () => {
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
+<>
+<SideBar/>
+ <Routes>
+        <Route path="/" />
+        <Route path="/calendar" element={<MyCalendar />} />
+        
+      </Routes>
+</>
   );
 };
