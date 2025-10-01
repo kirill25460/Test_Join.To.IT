@@ -1,100 +1,55 @@
+import { Calendar, momentLocalizer } from "react-big-calendar";
+import moment from "moment";
+import {CalcWrap } from './Calendar.styled';
+import CustomToolbar from "./CustomToolbar";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import "./Calendar.css";
 
-import React, { useState } from "react";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction";
-import EventModal from "../EventModal/EventModal";
+// локализатор через moment
+const localizer = momentLocalizer(moment);
 
-const Calendar = () => {
-  const [events, setEvents] = useState([
-    { id: "1", title: "Event name", start: "2025-01-02", color: "#3788d8" },
-    { id: "2", title: "Event name", start: "2025-01-05", color: "#3788d8" },
-  ]);
+// Тестовые события
+const today = new Date();
+const events = [
+  {
+    title: "Event name",
+    start: moment(today).toDate(),
+    end: moment(today).toDate(),
+  },
+  {
+    title: "Event name",
+    start: moment(today).add(2, "days").toDate(),
+    end: moment(today).add(2, "days").toDate(),
+  },
+  {
+    title: "Event name",
+    start: moment(today).add(5, "days").toDate(),
+    end: moment(today).add(5, "days").toDate(),
+  },
+];
 
-  const [modalOpen, setModalOpen] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(null);
-
-  // Открыть модал при клике по дате
-  const handleDateClick = (info) => {
-    setSelectedDate(info.dateStr);
-    setSelectedEvent(null);
-    setModalOpen(true);
-  };
-
-  // Открыть модал при клике по событию
-  const handleEventClick = (info) => {
-    const event = events.find((e) => e.id === info.event.id);
-    setSelectedEvent(event);
-    setSelectedDate(event.start);
-    setModalOpen(true);
-  };
-
-  // Добавить или обновить событие
-  const handleSaveEvent = (eventData) => {
-    if (selectedEvent) {
-      // редактирование
-      setEvents((prev) =>
-        prev.map((ev) =>
-          ev.id === selectedEvent.id ? { ...ev, ...eventData } : ev
-        )
-      );
-    } else {
-      // добавление
-      const newEvent = {
-        id: String(Date.now()),
-        ...eventData,
-      };
-      setEvents((prev) => [...prev, newEvent]);
-    }
-    setModalOpen(false);
-  };
-
-  // Удаление события
-  const handleDeleteEvent = () => {
-    if (selectedEvent) {
-      setEvents((prev) => prev.filter((ev) => ev.id !== selectedEvent.id));
-    }
-    setModalOpen(false);
-  };
-
+export default function MyCalendar() {
   return (
-    <div style={{ padding: "20px" }}>
-      <FullCalendar
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        initialView="dayGridMonth"
-        headerToolbar={{
-          left: "today prev,next",
-          center: "title",
-          right: "dayGridMonth,timeGridWeek,timeGridDay",
-        }}
+    <CalcWrap>
+      <h1>Calendar</h1>
+      <Calendar
+        localizer={localizer}
         events={events}
-        dateClick={handleDateClick}
-        eventClick={handleEventClick}
-        editable={true}
-        eventDrop={(info) => {
-          setEvents((prev) =>
-            prev.map((ev) =>
-              ev.id === info.event.id
-                ? { ...ev, start: info.event.startStr }
-                : ev
-            )
-          );
+        startAccessor="start"
+        endAccessor="end"
+        defaultView="month"
+        defaultDate={moment().toDate()} 
+        views={["month", "week", "day", "agenda"]}
+        components={{
+          toolbar: CustomToolbar,
+        }}
+        style={{
+          background: "#fff",
+          borderRadius: "8px",
+          boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+          padding: "20px 20px 35px 20px",
         }}
       />
-
-      {modalOpen && (
-        <EventModal
-          event={selectedEvent}
-          date={selectedDate}
-          onSave={handleSaveEvent}
-          onDelete={handleDeleteEvent}
-          onClose={() => setModalOpen(false)}
-        />
-      )}
-    </div>
+    </CalcWrap>
   );
-};
-
-export default Calendar;
+}
