@@ -1,73 +1,95 @@
 import React, { useState, useEffect } from "react";
-import {Backdrop,Modal,Input,Color,Actions,SaveButton,CancelButton,DeleteButton} from './EventModal.styles';
+import {
+  Backdrop,
+  Modal,
+  Header,
+  CloseButton,
+  Input,
+  TextArea,
+  Actions,
+  SaveButton,
+  CancelButton,
+  DeleteButton,
+} from "./EventModal.styles";
+
 const EventModal = ({ event, date, onSave, onDelete, onClose }) => {
   const [title, setTitle] = useState("");
+  const [eventDate, setEventDate] = useState("");
   const [time, setTime] = useState("");
-  const [color, setColor] = useState("#3788d8");
+  const [notes, setNotes] = useState("");
 
   useEffect(() => {
     if (event) {
-      setTitle(event.title);
-      setTime(event.start?.slice(11, 16) || "");
-      setColor(event.color || "#3788d8");
+      setTitle(event.title || "");
+      setEventDate(event.start ? event.start.toISOString().slice(0, 10) : "");
+      setTime(event.start ? event.start.toISOString().slice(11, 16) : "");      
+      setNotes(event.notes || "");
     } else {
       setTitle("");
+      setEventDate(date ? date.start?.toISOString().slice(0, 10) : "");
       setTime("");
-      setColor("#3788d8");
+      setNotes("");
     }
-  }, [event]);
+  }, [event, date]);
 
   const handleSave = () => {
-    if (!title.trim()) return;
+    if (!title.trim() || !eventDate || !time) return;
+  
+    const start = new Date(`${eventDate}T${time}`);
     const eventData = {
+      id: event?.id || start, 
       title,
-      start: time ? `${date}T${time}` : date,
-      color,
+      start,
+      end: start, 
+      notes,
     };
+  
     onSave(eventData);
   };
-
+  
   return (
     <Backdrop>
-      <Modal>
+    
+        <Header>
+          <CloseButton onClick={onClose}>&times;</CloseButton>
+        </Header>
+
         <Input
           type="text"
           placeholder="Event name"
           maxLength={30}
-          value={title}
+          value={title || ""}
           onChange={(e) => setTitle(e.target.value)}
-          
         />
+
+        <Input
+          type="date"
+          value={eventDate || ""}
+          onChange={(e) => setEventDate(e.target.value)}
+        />
+
         <Input
           type="time"
-          value={time}
+          value={time || ""}
           onChange={(e) => setTime(e.target.value)}
-          
         />
-        <Color
-          type="color"
-          value={color}
-          onChange={(e) => setColor(e.target.value)}
-         
+
+        <TextArea
+          placeholder="Notes"
+          value={notes || ""}
+          onChange={(e) => setNotes(e.target.value)}
         />
+
         <Actions>
           {event && (
-            <DeleteButton onClick={onDelete} >
-              Delete
-            </DeleteButton>
+            <DeleteButton onClick={onDelete}>Delete</DeleteButton>
           )}
-          <SaveButton onClick={handleSave}>
-            Save
-          </SaveButton>
-          <CancelButton onClick={onClose} >
-            Cancel
-          </CancelButton>
+          <CancelButton onClick={onClose}>Cancel</CancelButton>
+          <SaveButton onClick={handleSave}>Save</SaveButton>
         </Actions>
-      </Modal>
+      
     </Backdrop>
   );
 };
-
-
 
 export default EventModal;

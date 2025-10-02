@@ -1,101 +1,110 @@
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
-import React, { useState, useEffect } from "react";
-import {CalcWrap } from './Calendar.styles';
-import CustomToolbar from "./CustomToolbar";
+import React, { useState } from "react";
+import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import "./Calendar.css";
+import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
+import { CalcWrap } from "./Calendar.styles";
+import CustomToolbar from "./CustomToolbar";
 import EventModal from "../EventModal/EventModal";
 
 const localizer = momentLocalizer(moment);
-
-
-const today = new Date();
-const events = [
-  {
-    title: "Event name",
-    start: moment(today).toDate(),
-    end: moment(today).toDate(),
-  },
-  {
-    title: "Event name",
-    start: moment(today).add(2, "days").toDate(),
-    end: moment(today).add(2, "days").toDate(),
-  },
-  {
-    title: "Event name",
-    start: moment(today).add(5, "days").toDate(),
-    end: moment(today).add(5, "days").toDate(),
-  },
-];
+const DnDCalendar = withDragAndDrop(Calendar);
 
 export default function MyCalendar() {
-  const [events, setEvents] = useState([
-    { id: "1", title: "Event name", start: "2025-01-02", color: "#3788d8" },
-    { id: "2", title: "Event name", start: "2025-01-05", color: "#3788d8" },
-  ]);
+  const [events, setEvents] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(null);
 
-const [modalOpen, setModalOpen] = useState(false);
-const [selectedEvent, setSelectedEvent] = useState(null);
-const [selectedDate, setSelectedDate] = useState(null);
+  // Стилизация события цветом
+  const eventStyleGetter = (event) => {
+    const backgroundColor = event.color || "#3788d8";
+    return {
+      style: {
+        backgroundColor,
+        borderRadius: "5px",
+        color: "#fff",
+        border: "none",
+        display: "block",
+      },
+    };
+  };
 
- // Открыть модал при клике по дате
- const handleDateClick = (info) => {
-  setSelectedDate(info.dateStr);
-  setSelectedEvent(null);
-  setModalOpen(true);
-};
+  // Клик по дате (создание события)
+  const handleSelectSlot = ({ date}) => {
+    setSelectedDate({ date});
+    setSelectedEvent(null);
+    setModalOpen(true);
+  };
 
-// Открыть модал при клике по событию
-const handleEventClick = (info) => {
-  const event = events.find((e) => e.id === info.event.id);
-  setSelectedEvent(event);
-  setSelectedDate(event.start);
-  setModalOpen(true);
-};
+  //  Клик по событию (редактирование)
+  const handleSelectEvent = (event) => {
+    setSelectedEvent(event);
+    setSelectedDate({ date:event.date});
+    setModalOpen(true);
+  };
 
-// Добавить или обновить событие
-const handleSaveEvent = (eventData) => {
-  if (selectedEvent) {
-    // редактирование
+  // Сохранение (новое или редактирование)
+  const handleSaveEvent = (eventData) => {
+    if (eventData.title.length > 30) {
+      alert("Максимум 30 символов!");
+      return;
+    }
+  
+    if (selectedEvent) {
+      // редактирование
+      setEvents((prev) =>
+        prev.map((ev) =>
+          ev.id === eventData.id ? { ...ev, ...eventData } : ev
+        )
+      );
+    } else {
+      // новое событие
+      setEvents((prev) => [...prev, eventData]);
+    }
+    setModalOpen(false);
+  };
+  
+
+  //  Удаление события
+  const handleDeleteEvent = () => {
+    if (selectedEvent) {
+      setEvents((prev) => prev.filter((ev) => ev.id !== selectedEvent.id));
+    }
+    setModalOpen(false);
+  };
+
+  // Drag & Drop (перетаскивание)
+  const moveEvent = ({ event, start, end }) => {
     setEvents((prev) =>
       prev.map((ev) =>
-        ev.id === selectedEvent.id ? { ...ev, ...eventData } : ev
+        ev.id === event.id ? { ...ev, start, end } : ev
       )
     );
-  } else {
-    // добавление
-    const newEvent = {
-      id: String(Date.now()),
-      ...eventData,
-    };
-    setEvents((prev) => [...prev, newEvent]);
-  }
-  setModalOpen(false);
-};
+  };
 
-// Удаление события
-const handleDeleteEvent = () => {
-  if (selectedEvent) {
-    setEvents((prev) => prev.filter((ev) => ev.id !== selectedEvent.id));
-  }
-  setModalOpen(false);
-};
   return (
     <CalcWrap>
       <h1>Calendar</h1>
-      <Calendar
+      <DnDCalendar
         localizer={localizer}
         events={events}
         startAccessor="start"
         endAccessor="end"
-        eventClick={handleEventClick}
+        selectable
+        resizable
+        onEventDrop={moveEvent}
+        onEventResize={moveEvent}
+        onSelectSlot={handleSelectSlot}
+        onSelectEvent={handleSelectEvent}
         defaultView="month"
-        defaultDate={moment().toDate()} 
+        defaultDate={moment().toDate()}
         views={["month", "week", "day", "agenda"]}
         components={{
           toolbar: CustomToolbar,
         }}
+        eventPropGetter={eventStyleGetter}
         style={{
           background: "#fff",
           borderRadius: "8px",
@@ -103,6 +112,7 @@ const handleDeleteEvent = () => {
           padding: "20px 20px 35px 20px",
         }}
       />
+
       {modalOpen && (
         <EventModal
           event={selectedEvent}
