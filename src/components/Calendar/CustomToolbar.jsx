@@ -1,5 +1,5 @@
 import React from "react";
-import {ToolbarWrapper, ButtonGroup,Button ,Label,Wrap,Wrap2} from './CustomToolbar.styled';
+import {ToolbarWrapper, ButtonGroup,Button ,Label,Wrap,Wrap2} from './CustomToolbar.styles';
 
 export default function CustomToolbar({ label, onNavigate, onView, view }) {
   return (
