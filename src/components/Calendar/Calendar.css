@@ -1,72 +1,71 @@
+/* calendar.css */
+
 .rbc-calendar {
-    font-family: "Inter", sans-serif;
-    border: none;
-    height: 859px;
-    width: 1170px;
-  }
-  
-  .rbc-toolbar {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-  }
-  
-  .rbc-toolbar .rbc-btn-group button {
-    background: transparent;
-    border: 1px solid #e5e7eb;
-    border-radius: 6px;
-    padding: 5px 10px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #374151;
-    cursor: pointer;
-    transition: 0.2s;
-  }
-  
-  .rbc-toolbar .rbc-btn-group button:hover {
-    background: #f9fafb;
-  }
-  
-  .rbc-toolbar .rbc-btn-group button.rbc-active {
-    background: #f3f4f6;
-  }
-  
-  .rbc-toolbar-label {
-    font-size: 18px;
-    font-weight: 600;
-    color: #111827;
-  }
-  
-  .rbc-month-view {
-    border: 1px solid #e5e7eb;
-    border-radius: 6px;
-    overflow: hidden;
-  }
-  
-  .rbc-header {
-    padding: 10px 0;
-    background: #f9fafb;
-    border-bottom: 1px solid #e5e7eb;
-    font-size: 14px;
-    font-weight: 600;
-    color: #6b7280;
-    text-transform: uppercase;
-  }
-  
-  .rbc-month-row {
-    min-height: 100px;
-  }
-  
-  .rbc-event {
-    background: #3b82f6;
-    color: #fff;
-    border-radius: 4px;
-    padding: 2px 6px;
-    font-size: 13px;
-    font-weight: 500;
-  }
-  
-  .rbc-today {
-    background: #f3f4f6 !important;
-  }
-  
+  font-family: "Inter", sans-serif;
+  background: #fff;
+  border: none;
+}
+
+.rbc-toolbar {
+  margin-bottom: 20px;
+}
+
+/* Шапка с днями недели */
+.rbc-header {
+  background: #f9fafb;
+  color: #9ca3af;
+  font-weight: 500;
+  padding: 8px 0;
+  border-bottom: 1px solid #e5e7eb;
+  text-transform: uppercase;
+  font-size: 12px;
+  height: 45px;
+}
+
+/* Сетка */
+.rbc-month-view, .rbc-time-view {
+  border: none;
+}
+
+.rbc-month-row {
+  border-top: 1px solid #f3f4f6;
+}
+
+.rbc-day-bg {
+  border-right: 1px solid #f3f4f6;
+}
+
+.rbc-day-bg:last-child {
+  border-right: none;
+}
+
+/* Ячейки */
+.rbc-date-cell {
+  padding: 4px 6px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.rbc-off-range {
+  color: #d1d5db;
+}
+
+/* События */
+.rbc-event {
+  background: #3b82f6;
+  border: none;
+  border-radius: 6px;
+  padding: 2px 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.rbc-event:hover {
+  opacity: 0.9;
+}
+
+/* Сегодня */
+.rbc-today {
+  background: #eff6ff;
+}

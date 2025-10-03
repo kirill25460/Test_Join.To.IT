@@ -82,6 +82,14 @@ export const TextArea = styled.textarea`
   }
 `;
 
+export const ColorPicker = styled.input`
+  width: 50px;
+  height: 35px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+`;
+
 export const Icon = styled.div`
   position: absolute;
   right: 0;

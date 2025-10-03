@@ -15,8 +15,8 @@ export const SearchBox = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
+  background: transparent;
+  border: none;
   border-radius: 6px;
   padding: 6px 12px;
   width: 280px;
@@ -70,4 +70,10 @@ export const Avatar = styled.img`
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
+`;
+
+export const Divider =styled.div`
+width:1px;
+height:28px;
+background-color:#EBEBF2;
 `;

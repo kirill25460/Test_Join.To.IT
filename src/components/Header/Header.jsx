@@ -8,6 +8,7 @@ import {
   Avatar,
   UserName,
   IconButton,
+  Divider,
 } from "./Header.styles";
 
 import { FiSearch, FiGlobe, FiMessageCircle, FiBell } from "react-icons/fi";
@@ -15,28 +16,25 @@ import { FiSearch, FiGlobe, FiMessageCircle, FiBell } from "react-icons/fi";
 export default function Header() {
   return (
     <HeaderWrapper>
-      {/* Поиск */}
       <SearchBox>
         <FiSearch size={16} color="#9CA3AF" />
         <SearchInput placeholder="Search transactions, invoices or help" />
       </SearchBox>
-
-      {/* Справа */}
       <IconsWrapper>
         <IconButton>
-          <FiGlobe size={18} />
+          <FiGlobe size={16} />
         </IconButton>
         <IconButton>
-          <FiMessageCircle size={18} />
+          <FiMessageCircle size={16} />
         </IconButton>
         <IconButton>
-          <FiBell size={18} />
+          <FiBell size={16} />
         </IconButton>
-
+<Divider></Divider>
         <UserWrapper>
           <UserName>John Doe</UserName>
           <Avatar
-            src="https://i.pravatar.cc/40" // можно заменить на реальную аватарку
+            src="https://i.pravatar.cc/40" 
             alt="user"
           />
         </UserWrapper>

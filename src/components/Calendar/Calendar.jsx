@@ -7,7 +7,7 @@ import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import { CalcWrap } from "./Calendar.styles";
 import CustomToolbar from "./CustomToolbar";
 import EventModal from "../EventModal/EventModal";
-
+import "./Calendar.css";
 const localizer = momentLocalizer(moment);
 const DnDCalendar = withDragAndDrop(Calendar);
 
@@ -16,6 +16,14 @@ export default function MyCalendar() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
+
+  const formats = {
+    dayFormat: (date, culture, localizer) =>
+      localizer.format(date, "D", culture), // без ведущего 0
+    dateFormat: "D", // для чисел внутри календаря
+    weekdayFormat: (date, culture, localizer) =>
+      localizer.format(date, "ddd", culture), // сокращённые дни недели
+  };
 
   // Стилизация события цветом
   const eventStyleGetter = (event) => {
@@ -88,30 +96,31 @@ export default function MyCalendar() {
     <CalcWrap>
       <h1>Calendar</h1>
       <DnDCalendar
-        localizer={localizer}
-        events={events}
-        startAccessor="start"
-        endAccessor="end"
-        selectable
-        resizable
-        onEventDrop={moveEvent}
-        onEventResize={moveEvent}
-        onSelectSlot={handleSelectSlot}
-        onSelectEvent={handleSelectEvent}
-        defaultView="month"
-        defaultDate={moment().toDate()}
-        views={["month", "week", "day", "agenda"]}
-        components={{
-          toolbar: CustomToolbar,
-        }}
-        eventPropGetter={eventStyleGetter}
-        style={{
-          background: "#fff",
-          borderRadius: "8px",
-          boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-          padding: "20px 20px 35px 20px",
-        }}
-      />
+  localizer={localizer}
+  events={events}
+  startAccessor="start"
+  endAccessor="end"
+  selectable
+  resizable
+  onEventDrop={moveEvent}
+  onEventResize={moveEvent}
+  onSelectSlot={handleSelectSlot}
+  onSelectEvent={handleSelectEvent}
+  defaultView="month"
+  defaultDate={moment().toDate()}
+  views={["month", "week", "day", "agenda"]}
+  components={{
+    toolbar: CustomToolbar,
+  }}
+  eventPropGetter={eventStyleGetter}
+  formats={formats}  // 👈 добавил сюда
+  style={{
+    background: "#fff",
+    borderRadius: "8px",
+    boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+    padding: "20px 20px 35px 20px",
+  }}
+/>
 
       {modalOpen && (
         <EventModal

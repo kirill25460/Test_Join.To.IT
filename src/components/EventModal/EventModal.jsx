@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import {
   Backdrop,
-  Modal,
+  ColorPicker,
   Header,
   CloseButton,
   Input,
@@ -17,18 +18,21 @@ const EventModal = ({ event, date, onSave, onDelete, onClose }) => {
   const [eventDate, setEventDate] = useState("");
   const [time, setTime] = useState("");
   const [notes, setNotes] = useState("");
+  const [color, setColor] = useState("#3788d8");
 
   useEffect(() => {
     if (event) {
       setTitle(event.title || "");
-      setEventDate(event.start ? event.start.toISOString().slice(0, 10) : "");
-      setTime(event.start ? event.start.toISOString().slice(11, 16) : "");      
+      setEventDate(event.start ? moment(event.start).format("YYYY-MM-DD") : "");
+      setTime(event.start ? moment(event.start).format("HH:mm") : "");          
       setNotes(event.notes || "");
+      setColor(event.color || "#3788d8");
+
     } else {
       setTitle("");
-      setEventDate(date ? date.start?.toISOString().slice(0, 10) : "");
-      setTime("");
+      setEventDate(date?.date ? moment(date.date).format("YYYY-MM-DD") : "");      setTime("");
       setNotes("");
+      setColor("#3788d8");
     }
   }, [event, date]);
 
@@ -42,6 +46,7 @@ const EventModal = ({ event, date, onSave, onDelete, onClose }) => {
       start,
       end: start, 
       notes,
+      color,
     };
   
     onSave(eventData);
@@ -73,7 +78,11 @@ const EventModal = ({ event, date, onSave, onDelete, onClose }) => {
           value={time || ""}
           onChange={(e) => setTime(e.target.value)}
         />
-
+<ColorPicker
+          type="color"
+          value={color}
+          onChange={(e) => setColor(e.target.value)}
+        />
         <TextArea
           placeholder="Notes"
           value={notes || ""}
