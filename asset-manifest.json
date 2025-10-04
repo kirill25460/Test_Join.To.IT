@@ -1,13 +1,15 @@
 {
   "files": {
-    "main.css": "/Test_Join.To.IT/static/css/main.f85d38b9.css",
-    "main.js": "/Test_Join.To.IT/static/js/main.942fad6d.js",
+    "main.css": "/Test_Join.To.IT/static/css/main.cccd0741.css",
+    "main.js": "/Test_Join.To.IT/static/js/main.3760ead6.js",
+    "static/media/SourceSansPro-Regular.ttf": "/Test_Join.To.IT/static/media/SourceSansPro-Regular.c2b23b36ce51dfd4d60a.ttf",
+    "static/media/SourceSansPro-Bold.ttf": "/Test_Join.To.IT/static/media/SourceSansPro-Bold.66dc68e4e7cdfceb5627.ttf",
     "index.html": "/Test_Join.To.IT/index.html",
-    "main.f85d38b9.css.map": "/Test_Join.To.IT/static/css/main.f85d38b9.css.map",
-    "main.942fad6d.js.map": "/Test_Join.To.IT/static/js/main.942fad6d.js.map"
+    "main.cccd0741.css.map": "/Test_Join.To.IT/static/css/main.cccd0741.css.map",
+    "main.3760ead6.js.map": "/Test_Join.To.IT/static/js/main.3760ead6.js.map"
   },
   "entrypoints": [
-    "static/css/main.f85d38b9.css",
-    "static/js/main.942fad6d.js"
+    "static/css/main.cccd0741.css",
+    "static/js/main.3760ead6.js"
   ]
 }
