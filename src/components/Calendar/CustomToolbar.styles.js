@@ -11,10 +11,12 @@ export const ToolbarWrapper = styled.div`
 `;
 
 export const Title = styled.h2`
-  margin: 0;
-  font-size: 16px;
-  font-weight: 600;
-  color: #111827;
+  margin: 0px 0px 15px 0px;
+ font-family: var(--font-main);
+  font-size: var(--fs-18);
+  font-weight: 400; 
+  color: var(--color-gray);
+  line-height: var(--lh-13);
   grid-column: 1;
   grid-row: 1;
   align-self: center;
@@ -40,14 +42,18 @@ export const Label = styled.span`
   grid-column: 2;
   grid-row: 2;
   text-align: center;
-  font-size: 18px;
-  font-weight: 600;
-  color: #111827;
+  font-family: var(--font-main);
+  font-size: var(--fs-18);
+  font-weight: 400; 
+  color: var(--color-gray);
+  line-height: var(--lh-13);
 `;
 
 export const ButtonGroup = styled.div`
-border: 1px solid #d9d9d9;
-border-radius: 6px;
+box-shadow: 0px 2px 3px #0000000D;
+border: 1px solid #D7DAE2;
+border-radius: 4px;
+opacity: 1;
 overflow: hidden;
 `;
 
@@ -55,9 +61,11 @@ export const Button = styled.button`
   background: #fff;
   border: none;
   padding: 6px 14px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #374151;
+  font-family: var(--font-main);
+  font-size: var(--fs-13);
+  font-weight: 400; 
+  color: var(--color-gray);
+  line-height: var(--lh-20);
   cursor: pointer;
   transition: all 0.2s ease;
 
@@ -67,12 +75,11 @@ export const Button = styled.button`
   }
 
   &:hover {
-    color: #3B86FF;
+    color: var(--color-blue);
   }
 
   &.active {
-    
-    color: #3B86FF;
+    color: var(--color-blue);
   }
 `;
 

@@ -2,19 +2,12 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 export const SidebarWrapper = styled.div`
   width: 260px;
-  height: 100vh;
+  height: 1132px;
   background-color: #2f2e41;
   color: #cbd5e0;
   display: flex;
   flex-direction: column;
   position:absolute;
-`;
-
-export const Logo = styled.h1`
-  padding: 20px;
-  font-size: 14px;
-  font-weight: bold;
-  letter-spacing: 3px;
 `;
 
 export const Menu = styled.ul`
@@ -28,8 +21,9 @@ export const Menu = styled.ul`
 export const MenuItem = styled(NavLink)`
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 20px;
+height:53px;
+padding-left:25px;
+margin-bottom:6px;
   cursor: pointer;
   text-decoration: none;
   color: #cbd5e0;
@@ -42,7 +36,7 @@ export const MenuItem = styled(NavLink)`
 
   &.active {
     background-color: #2f2e41;
-    border-left: 3px solid #6c63ff;
+    border-left: 3px solid #A3A0FB;
     color: #ffffff;
   }
 `;
@@ -50,8 +44,17 @@ export const MenuItem = styled(NavLink)`
 export const IconWrapper = styled.div`
   display: flex;
   align-items: center;
+  margin-right:11px;
+    &.active {
+    
+    color: #6c63ff;
+  }
 `;
 
 export const Label = styled.span`
-  font-size: 14px;
+  font-family: var(--font-main);
+  font-size: var(--fs-15);
+  font-weight: 400; 
+  color: var(--color-white);
+  line-height: var(--lh-19);
 `;

@@ -1,6 +1,5 @@
 import {
   SidebarWrapper,
-  Logo,
   Menu,
   MenuItem,
   IconWrapper,
@@ -40,7 +39,6 @@ const SideBar = () => {
 
   return (
     <SidebarWrapper>
-      <Logo>IMPEKABLE</Logo>
       <Menu>
         {menuItems.map((item) => (
           <MenuItem

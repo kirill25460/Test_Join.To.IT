@@ -5,7 +5,6 @@ export default function CustomToolbar({ label, onNavigate, onView, view }) {
   return (
     <ToolbarWrapper>
       <Title>Calendar View</Title>
-
       <RightWrap>
         <ButtonGroup>
           <Button className={view === "month" ? "active" : ""} onClick={() => onView("month")}>Month</Button>

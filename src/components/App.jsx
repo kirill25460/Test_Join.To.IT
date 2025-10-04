@@ -5,8 +5,8 @@ import Header from './Header/Header';
 export const App = () => {
   return (
 <>
-<SideBar/>
 <Header/>
+<SideBar/>
  <Routes>
         <Route path="/" />
         <Route path="/calendar" element={<MyCalendar />} />

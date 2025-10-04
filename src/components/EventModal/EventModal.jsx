@@ -13,7 +13,7 @@ import {
   DeleteButton,
 } from "./EventModal.styles";
 
-const EventModal = ({ event, date, onSave, onDelete, onClose }) => {
+const EventModal = ({ modalPosition,event, date, onSave, onDelete, onClose }) => {
   const [title, setTitle] = useState("");
   const [eventDate, setEventDate] = useState("");
   const [time, setTime] = useState("");
@@ -53,7 +53,7 @@ const EventModal = ({ event, date, onSave, onDelete, onClose }) => {
   };
   
   return (
-    <Backdrop>
+    <Backdrop  >
     
         <Header>
           <CloseButton onClick={onClose}>&times;</CloseButton>
@@ -65,18 +65,23 @@ const EventModal = ({ event, date, onSave, onDelete, onClose }) => {
           maxLength={30}
           value={title || ""}
           onChange={(e) => setTitle(e.target.value)}
+          required
         />
 
         <Input
           type="date"
+           placeholder="Event name"
           value={eventDate || ""}
           onChange={(e) => setEventDate(e.target.value)}
+          required
         />
 
         <Input
           type="time"
+           placeholder="Event name"
           value={time || ""}
           onChange={(e) => setTime(e.target.value)}
+          required
         />
 <ColorPicker
           type="color"

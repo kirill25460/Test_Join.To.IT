@@ -1,44 +1,51 @@
 import React from "react";
 import {
   HeaderWrapper,
+  Logo,
+  Wrap,
+  WrapRight,
   SearchBox,
   SearchInput,
   IconsWrapper,
   UserWrapper,
   Avatar,
   UserName,
-  IconButton,
   Divider,
+  Arrow,
+  Search,
+  Globe,
+  Message,
+  Bell,
 } from "./Header.styles";
 
-import { FiSearch, FiGlobe, FiMessageCircle, FiBell } from "react-icons/fi";
+
 
 export default function Header() {
   return (
     <HeaderWrapper>
+      <Wrap>
+      <Logo>IMPEKABLE</Logo>
+       </Wrap>
+       <WrapRight>
       <SearchBox>
-        <FiSearch size={16} color="#9CA3AF" />
+        <Search/>
         <SearchInput placeholder="Search transactions, invoices or help" />
       </SearchBox>
       <IconsWrapper>
-        <IconButton>
-          <FiGlobe size={16} />
-        </IconButton>
-        <IconButton>
-          <FiMessageCircle size={16} />
-        </IconButton>
-        <IconButton>
-          <FiBell size={16} />
-        </IconButton>
+        <Globe/>
+        <Message/>
+        <Bell/>
 <Divider></Divider>
         <UserWrapper>
           <UserName>John Doe</UserName>
+          <Arrow />
           <Avatar
             src="https://i.pravatar.cc/40" 
             alt="user"
           />
         </UserWrapper>
       </IconsWrapper>
+     </WrapRight>
     </HeaderWrapper>
   );
 }

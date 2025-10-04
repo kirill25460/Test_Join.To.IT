@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
-import { CalcWrap } from "./Calendar.styles";
+import { CalcWrap,Text } from "./Calendar.styles";
 import CustomToolbar from "./CustomToolbar";
 import EventModal from "../EventModal/EventModal";
 import "./Calendar.css";
@@ -16,6 +16,7 @@ export default function MyCalendar() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
+const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
 
   const formats = {
     dayFormat: (date, culture, localizer) =>
@@ -40,10 +41,18 @@ export default function MyCalendar() {
   };
 
   // Клик по дате (создание события)
-  const handleSelectSlot = ({ date}) => {
+  const handleSelectSlot = ({ date,bounds }) => {
     setSelectedDate({ date});
     setSelectedEvent(null);
-    setModalOpen(true);
+    
+  if (bounds) {
+    setModalPosition({
+      top: bounds.y,       // координата Y ячейки
+      left: bounds.x,      // координата X ячейки
+    });
+  }
+
+  setModalOpen(true);
   };
 
   //  Клик по событию (редактирование)
@@ -94,7 +103,7 @@ export default function MyCalendar() {
 
   return (
     <CalcWrap>
-      <h1>Calendar</h1>
+      <Text>Calendar</Text>
       <DnDCalendar
   localizer={localizer}
   events={events}
@@ -113,13 +122,8 @@ export default function MyCalendar() {
     toolbar: CustomToolbar,
   }}
   eventPropGetter={eventStyleGetter}
-  formats={formats}  // 👈 добавил сюда
-  style={{
-    background: "#fff",
-    borderRadius: "8px",
-    boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-    padding: "20px 20px 35px 20px",
-  }}
+  formats={formats}  
+
 />
 
       {modalOpen && (
@@ -129,6 +133,7 @@ export default function MyCalendar() {
           onSave={handleSaveEvent}
           onDelete={handleDeleteEvent}
           onClose={() => setModalOpen(false)}
+          modalPosition={modalPosition}
         />
       )}
     </CalcWrap>

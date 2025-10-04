@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Backdrop = styled.div`
   position: absolute;
- 
+
   width: 201px;
   height: 275px;
   background: #fff;
@@ -100,9 +100,8 @@ export const Icon = styled.div`
 
 export const Actions = styled.div`
   display: flex;
-  justify-content: flex-end;
-  margin-top: 20px;
-  gap: 12px;
+  justify-content:space-around;
+width: 100%;
 `;
 
 export const SaveButton = styled.button`
